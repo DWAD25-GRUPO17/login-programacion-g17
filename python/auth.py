@@ -1,5 +1,3 @@
-
-
 #vemos los metodos de autenticacion que tenemos en el programa
 
 import re
@@ -72,3 +70,5 @@ def iniciar_sesion():
             print(f"Contraseña incorrecta. Intento {intento + 1}/3")
 
     print("Error de autenticacion. Contacta al administrador.")
+
+
