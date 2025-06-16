@@ -1,24 +1,21 @@
-
-
-#vemos los metodos de autenticacion que tenemos en el programa
-
+# auth.py
 import re
-from clases import Usuario
+from clases import UsuarioFinal
 from base_simulada import usuarios
-from menus import menu_usuario, menu_admin
 
-# METODO VALIDACION DE CONTRASEÑA
+PASS_CHAR_MIN = 6
+MAX_INTENTOS = 3
 
 def validar_contraseña(contraseña):
-    if len(contraseña) < 6:
-        return False 
+    if len(contraseña) < PASS_CHAR_MIN:
+        return False
     if not re.search(r"[A-Za-z]", contraseña):
         return False
     if not re.search(r"\d", contraseña):
-        return False 
+        return False
+    if re.search(r"[Ññ]", contraseña):
+        return False
     return True
-
-# METODO REGISTRO DE SESION
 
 def registrarse():
     print("\n=== Registro de Usuario ===")
@@ -34,20 +31,17 @@ def registrarse():
     while True:
         contraseña = input("Contraseña (mínimo 6 caracteres, letras y números): ")
         confirmacion = input("Confirmar contraseña: ")
-        if contraseña != confirmacion: 
+        if contraseña != confirmacion:
             print("Las contraseñas no coinciden.")
             continue
         if not validar_contraseña(contraseña):
             print("La contraseña no cumple los requisitos.")
-            continue 
-        break 
+            continue
+        break
 
-    nuevo_usuario = Usuario(nombre, mail, contraseña)
-    usuarios[mail] = nuevo_usuario 
-
+    nuevo_usuario = UsuarioFinal(nombre, mail, contraseña)
+    usuarios[mail] = nuevo_usuario
     print("Registro exitoso.")
-
-# INICIO DE SESION
 
 def iniciar_sesion():
     print("\n=== Iniciar Sesión ===")
@@ -55,20 +49,16 @@ def iniciar_sesion():
 
     if mail not in usuarios:
         print("Usuario no registrado.")
-        return 
-    
+        return
+
     usuario = usuarios[mail]
-    for intento in range(3):
+    for intento in range(MAX_INTENTOS):
         contraseña = input("Contraseña: ")
         if usuario.verificar_contraseña(contraseña):
-            print(f"\n ¡Bienvenido/a, {usuario.nombre} ({usuario.rol}!)")
-    #REDIRIGIR AL MENU SEGUN ROL ASIGNADO
-            if usuario.rol == "admin":
-                menu_admin(usuario)
-            else:
-                menu_usuario(usuario)
+            print(f"\n¡Bienvenido/a, {usuario.nombre} ({usuario.rol})!")
+            usuario.mostrar_menu()
             return
         else:
             print(f"Contraseña incorrecta. Intento {intento + 1}/3")
 
-    print("Error de autenticacion. Contacta al administrador.")
+    print("Error de autenticación. Contacta al administrador.")

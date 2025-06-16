@@ -1,47 +1,21 @@
-# vemos los diferentes menus segun el rol
+# menus.py
+from auth import registrarse, iniciar_sesion
+# COMENTARIO
 
-    #MENU DE USUARIO
-
-def menu_usuario(usuario):
-
+def menu_principal():
     while True:
-        print("\n Menú de Usuario")
-        print("1. Ver datos de sesion.")
-        print("2. Cerrar sesion.")
-        opcion = input("Opcion: ")
+        print("\n=== MENÚ PRINCIPAL ===")
+        print("1. Registrarse")
+        print("2. Iniciar sesión")
+        print("3. Salir")
+        opcion = input("Elegí una opción: ")
 
         if opcion == "1":
-            print(f"\n Perfil:\n Nombre de usuario: {usuario.nombre}\n Correo: {usuario.mail}")
+            registrarse()
         elif opcion == "2":
-            print("Sesion cerrada.")
+            iniciar_sesion()
+        elif opcion == "3":
+            print("Gracias por usar el sistema.")
             break
         else:
-            print("Opcion no valida.")
-
-
-
-    #MENU DE ADMINISTRADOR
-
-def menu_admin(admin):
-    while True:
-        print("\n Menu de Admin")
-        print("1. Crear usuario.")
-        print("2. Eliminar usuario.")
-        print("3. Cerrar sesion.")
-        opcion = input("Opcion: ")
-        if opcion == "1":
-            nombre = input("Nombre nuevo usuario: ")
-            mail = input("Correo: ")
-            contraseña = input("Contraseña: ")
-            admin.crear_usuario(nombre, mail, contraseña)
-        elif opcion == "2":
-            mail = input("Correo del usuario a eliminar: ")
-            admin.eliminar_usuario(mail)
-        elif opcion == "3":
-            print("Sesion cerrada.")
-            break 
-        else:
-            print("Opcion no valida.")
-
-   
-
+            print("Opción inválida.")

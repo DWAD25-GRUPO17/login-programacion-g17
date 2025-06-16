@@ -1,3 +1,3 @@
-#base de datos simulada
+#base_simulada.py
 
 usuarios = {}
