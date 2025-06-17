@@ -1,4 +1,7 @@
-# auth.py
+
+
+#vemos los metodos de autenticacion que tenemos en el programa
+
 import re
 from clases import UsuarioFinal
 from base_simulada import usuarios
@@ -61,4 +64,4 @@ def iniciar_sesion():
         else:
             print(f"Contraseña incorrecta. Intento {intento + 1}/3")
 
-    print("Error de autenticación. Contacta al administrador.")
+    print("Error de autenticacion. Contacta al administrador.")
